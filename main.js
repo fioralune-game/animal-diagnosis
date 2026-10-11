@@ -1102,10 +1102,6 @@ function createResultImage() {
 
         }, "image/png");
     }
-
-    // 画像の読み込み成功・失敗
-    [image, pillar, grass].forEach(img => {
-
         img.onload = onImageLoaded;
 
         img.onerror = () => {
