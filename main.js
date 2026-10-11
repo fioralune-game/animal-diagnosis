@@ -1123,7 +1123,7 @@ ctx.drawImage(
 
     img.onload = onImageLoaded;
 
-    img.onerror = () => {
+       img.onerror = () => {
         alert("画像を読み込めませんでした：" + img.src);
     };
 
@@ -1133,3 +1133,5 @@ ctx.drawImage(
 image.src = shareImage.src;
 grass.src = "images/grass-bottom.webp";
 frame.src = "images/frame.webp";
+
+}
