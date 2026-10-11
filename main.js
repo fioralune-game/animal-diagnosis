@@ -972,16 +972,18 @@ function createResultImage() {
     const animalName = shareName.textContent;
 
     const image = new Image();
-const grass = new Image();
-const frame = new Image();
-
-    // 3つの画像を読み込んでから描画する
+    const grass = new Image();
+    const frame = new Image();
+    const paw1 = new Image();
+    const paw2 = new Image();
+    
+    // 5つの画像を読み込んでから描画する
     let loadedCount = 0;
 
     function onImageLoaded() {
         loadedCount++;
 
-        if (loadedCount !== 3) return;
+        if (loadedCount !== 5) return;
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -993,14 +995,40 @@ const frame = new Image();
         canvas.height = height;
 
         // 背景
-        ctx.fillStyle = "#F8F5EA";
-        ctx.fillRect(0, 0, width, height);
+ctx.fillStyle = "#F8F5EA";
+ctx.fillRect(0, 0, width, height);
 
-        // 外枠
-        ctx.strokeStyle = "#BBA576";
-        ctx.lineWidth = 5;
-        ctx.strokeRect(35, 35, width - 70, height - 70);
+// ========================================
+// 背景の足跡
+// ========================================
 
+ctx.save();
+ctx.globalAlpha = 0.18; // 足跡を薄くする
+
+// 足跡1
+ctx.drawImage(
+    paw1,
+    70,
+    250,
+    150,
+    150
+);
+
+// 足跡2
+ctx.drawImage(
+    paw2,
+    650,
+    650,
+    160,
+    160
+);
+
+ctx.restore();
+
+// 外枠
+ctx.strokeStyle = "#BBA576";
+ctx.lineWidth = 5;
+ctx.strokeRect(35, 35, width - 70, height - 70);
         // ========================================
 // 上部中央のフレーム
 // ========================================
@@ -1108,7 +1136,7 @@ ctx.font = '28px "Yu Mincho", serif';
         }, "image/png");
     }
           // 画像の読み込み完了時
-[image, grass, frame].forEach(img => {
+[image, grass, frame, paw1, paw2].forEach(img => {
 
     img.onload = onImageLoaded;
 
@@ -1122,5 +1150,6 @@ ctx.font = '28px "Yu Mincho", serif';
 image.src = shareImage.src;
 grass.src = "images/grass-bottom.webp";
 frame.src = "images/frame.webp";
-
+paw1.src = "images/paw-prints-1.webp";
+paw2.src = "images/paw-prints-2.webp";
 }
