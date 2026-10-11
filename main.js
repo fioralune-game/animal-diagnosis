@@ -972,16 +972,15 @@ function createResultImage() {
     const animalName = shareName.textContent;
 
     const image = new Image();
-    const pillar = new Image();
     const grass = new Image();
 
-    // 3つの画像を読み込んでから描画する
+    // 2つの画像を読み込んでから描画する
     let loadedCount = 0;
 
     function onImageLoaded() {
         loadedCount++;
 
-        if (loadedCount !== 3) return;
+        if (loadedCount !== 2) return;
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -1001,45 +1000,6 @@ function createResultImage() {
         ctx.lineWidth = 5;
         ctx.strokeRect(35, 35, width - 70, height - 70);
 
-        // ========================================
-// 左右の柱（比率を維持して草の位置に合わせる）
-// ========================================
-
-const pillarWidth = 180;
-
-// 元画像の縦横比を維持
-const pillarHeight =
-    pillarWidth * (pillar.naturalHeight / pillar.naturalWidth);
-
-// 草の上端に柱の下端を合わせる
-const pillarGrassHeight = 150;
-const grassY = height - pillarGrassHeight - 30;
-const pillarY = grassY - pillarHeight + 40;
-
-// 左の柱
-ctx.drawImage(
-    pillar,
-    15,
-    pillarY,
-    pillarWidth,
-    pillarHeight
-);
-
-// 右の柱（左右反転）
-ctx.save();
-
-ctx.translate(width, 0);
-ctx.scale(-1, 1);
-
-ctx.drawImage(
-    pillar,
-    15,
-    pillarY,
-    pillarWidth,
-    pillarHeight
-);
-
-ctx.restore();
         
         // ========================================
         // タイトル
