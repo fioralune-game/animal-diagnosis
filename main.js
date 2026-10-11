@@ -1050,7 +1050,7 @@ ctx.drawImage(
         ctx.drawImage(
             image,
             width / 2 - 180,
-            250,
+            260,
             360,
             360
         );
@@ -1062,7 +1062,7 @@ ctx.font = '30px "Yu Mincho", serif';
         ctx.fillText(
             "あなたの旅の相棒は",
             width / 2,
-            690
+            700
         );
 
         // 動物名
@@ -1073,7 +1073,7 @@ ctx.font = 'bold 56px "Yu Mincho", serif';
         ctx.fillText(
             animalName,
             width / 2,
-            770
+            780
         );
 
         // メッセージ
@@ -1084,13 +1084,13 @@ ctx.font = '28px "Yu Mincho", serif';
         ctx.fillText(
             "あなたの旅の物語を",
             width / 2,
-            890
+            910
         );
 
         ctx.fillText(
             "一緒に歩むモチーフアニマル",
             width / 2,
-            960
+            980
         );
 
         // ========================================
