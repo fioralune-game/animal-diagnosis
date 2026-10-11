@@ -969,23 +969,13 @@ shareInstagramButton.onclick = () => {
 
 function createResultImage() {
 
-    const animalName =
-        shareName.textContent;
-
-    const image =
-        new Image();
-
-    image.src =
-        shareImage.src;
-
+    const animalName = shareName.textContent;
+    const image = new Image();
 
     image.onload = () => {
 
-        const canvas =
-            document.createElement("canvas");
-
-        const ctx =
-            canvas.getContext("2d");
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
 
         const width = 900;
         const height = 1200;
@@ -993,40 +983,19 @@ function createResultImage() {
         canvas.width = width;
         canvas.height = height;
 
-
         // 背景
-
         ctx.fillStyle = "#F8F5EA";
-
-        ctx.fillRect(
-            0,
-            0,
-            width,
-            height
-        );
-
+        ctx.fillRect(0, 0, width, height);
 
         // 外枠
-
         ctx.strokeStyle = "#BBA576";
         ctx.lineWidth = 5;
-
-        ctx.strokeRect(
-            35,
-            35,
-            width - 70,
-            height - 70
-        );
-
+        ctx.strokeRect(35, 35, width - 70, height - 70);
 
         // タイトル
-
         ctx.textAlign = "center";
-
         ctx.fillStyle = "#6A4C25";
-
-        ctx.font =
-            '28px "Yu Mincho", serif';
+        ctx.font = '28px "Yu Mincho", serif';
 
         ctx.fillText(
             "モチーフアニマル診断",
@@ -1034,9 +1003,7 @@ function createResultImage() {
             100
         );
 
-
         // 動物画像
-
         ctx.drawImage(
             image,
             width / 2 - 180,
@@ -1045,13 +1012,9 @@ function createResultImage() {
             360
         );
 
-
         // キャッチコピー
-
         ctx.fillStyle = "#434C1F";
-
-        ctx.font =
-            '30px "Yu Mincho", serif';
+        ctx.font = '30px "Yu Mincho", serif';
 
         ctx.fillText(
             "あなたの旅の相棒は",
@@ -1059,13 +1022,9 @@ function createResultImage() {
             610
         );
 
-
         // 動物名
-
         ctx.fillStyle = "#331700";
-
-        ctx.font =
-            'bold 56px "Yu Mincho", serif';
+        ctx.font = 'bold 56px "Yu Mincho", serif';
 
         ctx.fillText(
             animalName,
@@ -1073,13 +1032,9 @@ function createResultImage() {
             690
         );
 
-
         // メッセージ
-
         ctx.fillStyle = "#434C1F";
-
-        ctx.font =
-            '28px "Yu Mincho", serif';
+        ctx.font = '28px "Yu Mincho", serif';
 
         ctx.fillText(
             "あなたの旅の物語を",
@@ -1093,97 +1048,56 @@ function createResultImage() {
             840
         );
 
+        // 草を読み込む
+        const grass = new Image();
 
-        // 下部の草を画像に追加
+        grass.onload = () => {
 
-const grass = new Image();
+            // 草を下端に配置
+            ctx.drawImage(
+                grass,
+                0,
+                970,
+                width,
+                150
+            );
 
-grass.src = "images/grass-bottom.webp";
+            // 草を重ねた画像だけ保存
+            canvas.toBlob((blob) => {
 
-grass.onload = () => {
+                if (!blob) {
+                    alert("画像を作成できませんでした。");
+                    return;
+                }
 
-    ctx.drawImage(
-        grass,
-        0,
-        940,
-        width,
-        200
-    );
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
 
-    // 保存
-    canvas.toBlob((blob) => {
+                link.href = url;
+                link.download = "motif-animal-result.png";
 
-        if (!blob) {
-            alert("画像を作成できませんでした。");
-            return;
-        }
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
 
-        const url = URL.createObjectURL(blob);
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 1000);
 
-        const link = document.createElement("a");
+            }, "image/png");
 
-        link.href = url;
-        link.download = "motif-animal-result.png";
+        };
 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        grass.onerror = () => {
+            alert("草の画像を読み込めませんでした。");
+        };
 
-        URL.revokeObjectURL(url);
-
-    }, "image/png");
-
-};
-
-grass.onerror = () => {
-    alert("草の画像を読み込めませんでした。");
-};
-
-
-        // 保存
-
-        canvas.toBlob((blob) => {
-
-            if (!blob) {
-
-                alert(
-                    "画像を作成できませんでした。"
-                );
-
-                return;
-
-            }
-
-            const url =
-                URL.createObjectURL(blob);
-
-            const link =
-                document.createElement("a");
-
-            link.href = url;
-
-            link.download =
-                "motif-animal-result.png";
-
-            document.body.appendChild(link);
-
-            link.click();
-
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(url);
-
-        }, "image/png");
-
+        grass.src = "images/grass-bottom.webp";
     };
-
 
     image.onerror = () => {
-
-        alert(
-            "診断結果の画像を作成できませんでした。"
-        );
-
+        alert("診断結果の画像を作成できませんでした。");
     };
 
+    image.src = shareImage.src;
 }
