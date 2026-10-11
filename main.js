@@ -1094,18 +1094,50 @@ function createResultImage() {
         );
 
 
-        // 下部
+        // 下部の草を画像に追加
 
-        ctx.fillStyle = "#7D8F16";
+const grass = new Image();
 
-        ctx.font =
-            '22px "Yu Mincho", serif';
+grass.src = "images/grass-bottom.webp";
 
-        ctx.fillText(
-            "モチーフアニマル診断",
-            width / 2,
-            1060
-        );
+grass.onload = () => {
+
+    ctx.drawImage(
+        grass,
+        0,
+        940,
+        width,
+        200
+    );
+
+    // 保存
+    canvas.toBlob((blob) => {
+
+        if (!blob) {
+            alert("画像を作成できませんでした。");
+            return;
+        }
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "motif-animal-result.png";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    }, "image/png");
+
+};
+
+grass.onerror = () => {
+    alert("草の画像を読み込めませんでした。");
+};
 
 
         // 保存
