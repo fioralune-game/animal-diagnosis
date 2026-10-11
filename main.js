@@ -986,7 +986,47 @@ function createResultImage() {
         // 背景
         ctx.fillStyle = "#F8F5EA";
         ctx.fillRect(0, 0, width, height);
+// ========================================
+// 左右の柱
+// ========================================
 
+const pillar = new Image();
+
+pillar.src = "images/pillar.webp";
+
+pillar.onload = () => {
+
+    // 柱のサイズ
+    const pillarWidth = 150;
+    const pillarHeight = 1000;
+
+    // 左の柱
+    ctx.drawImage(
+        pillar,
+        15,
+        150,
+        pillarWidth,
+        pillarHeight
+    );
+
+    // 右の柱（左右反転）
+    ctx.save();
+
+    ctx.translate(width - 15 + pillarWidth, 0);
+    ctx.scale(-1, 1);
+
+    ctx.drawImage(
+        pillar,
+        15,
+        150,
+        pillarWidth,
+        pillarHeight
+    );
+
+    ctx.restore();
+
+};
+        
         // 外枠
         ctx.strokeStyle = "#BBA576";
         ctx.lineWidth = 5;
