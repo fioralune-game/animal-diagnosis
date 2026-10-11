@@ -1017,25 +1017,12 @@ ctx.drawImage(
 );
 
         
-        // ========================================
-        // タイトル
-        // ========================================
-
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#6A4C25";
-        ctx.font = '28px "Yu Mincho", serif';
-
-        ctx.fillText(
-            "モチーフアニマル診断",
-            width / 2,
-            100
-        );
-
+        
         // 動物画像
         ctx.drawImage(
             image,
             width / 2 - 180,
-            170,
+            240,
             360,
             360
         );
@@ -1047,7 +1034,7 @@ ctx.drawImage(
         ctx.fillText(
             "あなたの旅の相棒は",
             width / 2,
-            610
+            680
         );
 
         // 動物名
@@ -1057,7 +1044,7 @@ ctx.drawImage(
         ctx.fillText(
             animalName,
             width / 2,
-            690
+            760
         );
 
         // メッセージ
@@ -1067,13 +1054,13 @@ ctx.drawImage(
         ctx.fillText(
             "あなたの旅の物語を",
             width / 2,
-            760
+            830
         );
 
         ctx.fillText(
             "一緒に歩むモチーフアニマル",
             width / 2,
-            840
+            910
         );
 
         // ========================================
