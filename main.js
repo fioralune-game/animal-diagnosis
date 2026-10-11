@@ -1039,7 +1039,7 @@ function createResultImage() {
         ctx.fillText(
             "あなたの旅の物語を",
             width / 2,
-            790
+            760
         );
 
         ctx.fillText(
@@ -1057,7 +1057,7 @@ function createResultImage() {
             ctx.drawImage(
                 grass,
                 0,
-                970,
+                1100,
                 width,
                 150
             );
