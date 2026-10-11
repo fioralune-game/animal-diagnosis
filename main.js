@@ -972,15 +972,16 @@ function createResultImage() {
     const animalName = shareName.textContent;
 
     const image = new Image();
-    const grass = new Image();
+const grass = new Image();
+const frame = new Image();
 
-    // 2つの画像を読み込んでから描画する
+    // 3つの画像を読み込んでから描画する
     let loadedCount = 0;
 
     function onImageLoaded() {
         loadedCount++;
 
-        if (loadedCount !== 2) return;
+        if (loadedCount !== 3) return;
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -999,6 +1000,21 @@ function createResultImage() {
         ctx.strokeStyle = "#BBA576";
         ctx.lineWidth = 5;
         ctx.strokeRect(35, 35, width - 70, height - 70);
+
+        // ========================================
+// 上部中央のフレーム
+// ========================================
+
+const frameWidth = 500;
+const frameHeight = 180;
+
+ctx.drawImage(
+    frame,
+    (width - frameWidth) / 2,
+    50,
+    frameWidth,
+    frameHeight
+);
 
         
         // ========================================
@@ -1102,19 +1118,18 @@ function createResultImage() {
 
         }, "image/png");
     }
-           // 画像の読み込み完了時
-    [image, grass].forEach(img => {
+          // 画像の読み込み完了時
+[image, grass, frame].forEach(img => {
 
-        img.onload = onImageLoaded;
+    img.onload = onImageLoaded;
 
-        img.onerror = () => {
-            alert("画像を読み込めませんでした：" + img.src);
-        };
+    img.onerror = () => {
+        alert("画像を読み込めませんでした：" + img.src);
+    };
 
-    });
+});
 
-    // ファイルの場所
-    image.src = shareImage.src;
-    grass.src = "images/grass-bottom.webp";
-
-}
+// ファイルの場所
+image.src = shareImage.src;
+grass.src = "images/grass-bottom.webp";
+frame.src = "images/frame.webp";
