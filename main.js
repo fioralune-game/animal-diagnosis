@@ -1054,13 +1054,16 @@ function createResultImage() {
         grass.onload = () => {
 
             // 草を下端に配置
-            ctx.drawImage(
-                grass,
-                0,
-                1000,
-                width,
-                150
-            );
+const grassWidth = width * 0.9;
+const grassHeight = 150;
+
+ctx.drawImage(
+    grass,
+    (width - grassWidth) / 2,
+    height - grassHeight - 30,
+    grassWidth,
+    grassHeight
+);
 
             // 草を重ねた画像だけ保存
             canvas.toBlob((blob) => {
