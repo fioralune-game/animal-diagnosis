@@ -970,9 +970,18 @@ shareInstagramButton.onclick = () => {
 function createResultImage() {
 
     const animalName = shareName.textContent;
-    const image = new Image();
 
-    image.onload = () => {
+    const image = new Image();
+    const pillar = new Image();
+    const grass = new Image();
+
+    // 3つの画像を読み込んでから描画する
+    let loadedCount = 0;
+
+    function onImageLoaded() {
+        loadedCount++;
+
+        if (loadedCount !== 3) return;
 
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -986,53 +995,49 @@ function createResultImage() {
         // 背景
         ctx.fillStyle = "#F8F5EA";
         ctx.fillRect(0, 0, width, height);
-// ========================================
-// 左右の柱
-// ========================================
 
-const pillar = new Image();
-
-pillar.src = "images/pillar.webp";
-
-pillar.onload = () => {
-
-    // 柱のサイズ
-    const pillarWidth = 150;
-    const pillarHeight = 1000;
-
-    // 左の柱
-    ctx.drawImage(
-        pillar,
-        15,
-        150,
-        pillarWidth,
-        pillarHeight
-    );
-
-    // 右の柱（左右反転）
-    ctx.save();
-
-    ctx.translate(width - 15 + pillarWidth, 0);
-    ctx.scale(-1, 1);
-
-    ctx.drawImage(
-        pillar,
-        15,
-        150,
-        pillarWidth,
-        pillarHeight
-    );
-
-    ctx.restore();
-
-};
-        
         // 外枠
         ctx.strokeStyle = "#BBA576";
         ctx.lineWidth = 5;
         ctx.strokeRect(35, 35, width - 70, height - 70);
 
+        // ========================================
+        // 左右の柱
+        // ========================================
+
+        const pillarWidth = 150;
+        const pillarHeight = 1000;
+        const pillarY = 150;
+
+        // 左の柱
+        ctx.drawImage(
+            pillar,
+            15,
+            pillarY,
+            pillarWidth,
+            pillarHeight
+        );
+
+        // 右の柱（左右反転）
+        ctx.save();
+
+        ctx.translate(width, 0);
+        ctx.scale(-1, 1);
+
+        ctx.drawImage(
+            pillar,
+            15,
+            pillarY,
+            pillarWidth,
+            pillarHeight
+        );
+
+        ctx.restore();
+
+        // ========================================
         // タイトル
+        // ========================================
+
         ctx.textAlign = "center";
         ctx.fillStyle = "#6A4C25";
         ctx.font = '28px "Yu Mincho", serif';
@@ -1088,59 +1093,63 @@ pillar.onload = () => {
             840
         );
 
-        // 草を読み込む
-        const grass = new Image();
+        // ========================================
+        // 草を一番手前に描画
+        // ========================================
 
-        grass.onload = () => {
+        const grassWidth = width * 0.9;
+        const grassHeight = 150;
 
-            // 草を下端に配置
-const grassWidth = width * 0.9;
-const grassHeight = 150;
+        ctx.drawImage(
+            grass,
+            (width - grassWidth) / 2,
+            height - grassHeight - 30,
+            grassWidth,
+            grassHeight
+        );
 
-ctx.drawImage(
-    grass,
-    (width - grassWidth) / 2,
-    height - grassHeight - 30,
-    grassWidth,
-    grassHeight
-);
+        // ========================================
+        // 画像を保存
+        // ========================================
 
-            // 草を重ねた画像だけ保存
-            canvas.toBlob((blob) => {
+        canvas.toBlob((blob) => {
 
-                if (!blob) {
-                    alert("画像を作成できませんでした。");
-                    return;
-                }
+            if (!blob) {
+                alert("画像を作成できませんでした。");
+                return;
+            }
 
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
 
-                link.href = url;
-                link.download = "motif-animal-result.png";
+            link.href = url;
+            link.download = "motif-animal-result.png";
 
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
 
-                setTimeout(() => {
-                    URL.revokeObjectURL(url);
-                }, 1000);
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 1000);
 
-            }, "image/png");
+        }, "image/png");
+    }
 
+    // 画像の読み込み成功・失敗
+    [image, pillar, grass].forEach(img => {
+
+        img.onload = onImageLoaded;
+
+        img.onerror = () => {
+            alert("画像を読み込めませんでした：" + img.src);
         };
 
-        grass.onerror = () => {
-            alert("草の画像を読み込めませんでした。");
-        };
+    });
 
-        grass.src = "images/grass-bottom.webp";
-    };
-
-    image.onerror = () => {
-        alert("診断結果の画像を作成できませんでした。");
-    };
-
+    // ファイルの場所
     image.src = shareImage.src;
+    pillar.src = "images/pillar.webp";
+    grass.src = "images/grass-bottom.webp";
+
 }
