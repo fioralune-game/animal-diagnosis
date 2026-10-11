@@ -1057,7 +1057,7 @@ function createResultImage() {
             ctx.drawImage(
                 grass,
                 0,
-                1050,
+                1000,
                 width,
                 150
             );
