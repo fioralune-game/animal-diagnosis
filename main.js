@@ -1028,9 +1028,9 @@ ctx.drawImage(
         );
 
         // キャッチコピー
-        ctx.fillStyle = "#434C1F";
-        ctx.font = '30px "Yu Mincho", serif';
-
+ctx.textAlign = "center";
+ctx.fillStyle = "#434C1F";
+ctx.font = '30px "Yu Mincho", serif';
         ctx.fillText(
             "あなたの旅の相棒は",
             width / 2,
@@ -1038,9 +1038,10 @@ ctx.drawImage(
         );
 
         // 動物名
-        ctx.fillStyle = "#331700";
-        ctx.font = 'bold 56px "Yu Mincho", serif';
-
+        // 動物名
+ctx.textAlign = "center";
+ctx.fillStyle = "#331700";
+ctx.font = 'bold 56px "Yu Mincho", serif';
         ctx.fillText(
             animalName,
             width / 2,
@@ -1048,19 +1049,20 @@ ctx.drawImage(
         );
 
         // メッセージ
-        ctx.fillStyle = "#434C1F";
-        ctx.font = '28px "Yu Mincho", serif';
-
+        // メッセージ
+ctx.textAlign = "center";
+ctx.fillStyle = "#434C1F";
+ctx.font = '28px "Yu Mincho", serif';
         ctx.fillText(
             "あなたの旅の物語を",
             width / 2,
-            830
+            860
         );
 
         ctx.fillText(
             "一緒に歩むモチーフアニマル",
             width / 2,
-            910
+            930
         );
 
         // ========================================
