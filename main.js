@@ -1012,8 +1012,8 @@ const pillarHeight =
     pillarWidth * (pillar.naturalHeight / pillar.naturalWidth);
 
 // 草の上端に柱の下端を合わせる
-const grassHeight = 150;
-const grassY = height - grassHeight - 30;
+const pillarGrassHeight = 150;
+const grassY = height - pillarGrassHeight - 30;
 const pillarY = grassY - pillarHeight + 40;
 
 // 左の柱
