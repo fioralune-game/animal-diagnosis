@@ -1102,6 +1102,9 @@ function createResultImage() {
 
         }, "image/png");
     }
+           // 画像の読み込み完了時
+    [image, grass].forEach(img => {
+
         img.onload = onImageLoaded;
 
         img.onerror = () => {
@@ -1112,7 +1115,6 @@ function createResultImage() {
 
     // ファイルの場所
     image.src = shareImage.src;
-    pillar.src = "images/pillar.webp";
     grass.src = "images/grass-bottom.webp";
 
 }
