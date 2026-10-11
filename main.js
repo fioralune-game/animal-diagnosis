@@ -1002,38 +1002,45 @@ function createResultImage() {
         ctx.strokeRect(35, 35, width - 70, height - 70);
 
         // ========================================
-        // 左右の柱
-        // ========================================
+// 左右の柱（比率を維持して草の位置に合わせる）
+// ========================================
 
-        const pillarWidth = 150;
-        const pillarHeight = 1000;
-        const pillarY = 150;
+const pillarWidth = 180;
 
-        // 左の柱
-        ctx.drawImage(
-            pillar,
-            15,
-            pillarY,
-            pillarWidth,
-            pillarHeight
-        );
+// 元画像の縦横比を維持
+const pillarHeight =
+    pillarWidth * (pillar.naturalHeight / pillar.naturalWidth);
 
-        // 右の柱（左右反転）
-        ctx.save();
+// 草の上端に柱の下端を合わせる
+const grassHeight = 150;
+const grassY = height - grassHeight - 30;
+const pillarY = grassY - pillarHeight + 40;
 
-        ctx.translate(width, 0);
-        ctx.scale(-1, 1);
+// 左の柱
+ctx.drawImage(
+    pillar,
+    15,
+    pillarY,
+    pillarWidth,
+    pillarHeight
+);
 
-        ctx.drawImage(
-            pillar,
-            15,
-            pillarY,
-            pillarWidth,
-            pillarHeight
-        );
+// 右の柱（左右反転）
+ctx.save();
 
-        ctx.restore();
+ctx.translate(width, 0);
+ctx.scale(-1, 1);
 
+ctx.drawImage(
+    pillar,
+    15,
+    pillarY,
+    pillarWidth,
+    pillarHeight
+);
+
+ctx.restore();
+        
         // ========================================
         // タイトル
         // ========================================
