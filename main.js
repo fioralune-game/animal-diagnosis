@@ -1003,7 +1003,7 @@ ctx.fillRect(0, 0, width, height);
 // ========================================
 
 ctx.save();
-ctx.globalAlpha = 0.30; // 足跡を少し濃くする
+ctx.globalAlpha = 0.80; // 足跡を少し濃くする
 
 // 足跡1（左上寄り）
 ctx.drawImage(
