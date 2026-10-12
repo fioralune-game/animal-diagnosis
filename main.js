@@ -545,7 +545,7 @@ function showResult() {
     100;
 
     const empathyRate =
-        scores.F /
+        scores.T /
         (scores.F + scores.T) *
         100;
 
