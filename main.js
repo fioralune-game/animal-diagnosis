@@ -1,6 +1,23 @@
 let answerHistory = [];
 let currentQuestion = 0;
 
+// ========================================
+// ランダム表示用
+// ========================================
+
+let shuffledQuestions = [];
+
+function shuffleArray(array) {
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [result[i], result[j]] = [result[j], result[i]];
+    }
+
+    return result;
+}
 
 // ========================================
 // MBTIスコア
@@ -116,8 +133,10 @@ const exitBtn = document.getElementById("exit-btn");
 
 startBtn.onclick = () => {
 
-    quizScreen.classList.remove("hidden");
+    // 質問の順番をランダムにする
+    shuffledQuestions = shuffleArray(questions);
 
+    quizScreen.classList.remove("hidden");
     document.body.style.overflow = "hidden";
 
     // 本を拡大・回転
@@ -193,7 +212,7 @@ backBtn.onclick = () => {
 
 function showQuestion(growIndex = -1) {
 
-    const q = questions[currentQuestion];
+   const q = shuffledQuestions[currentQuestion];
 
 
     // ------------------------------------
