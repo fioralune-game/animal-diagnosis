@@ -1009,7 +1009,7 @@ ctx.globalAlpha = 0.80; // 足跡を少し濃くする
 ctx.drawImage(
     paw2,
     70,
-    250,
+    300,
     150,
     150
 );
