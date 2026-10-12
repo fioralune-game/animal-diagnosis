@@ -1,5 +1,6 @@
 let answerHistory = [];
 let currentQuestion = 0;
+let shuffledChoicesByQuestion = [];
 
 
 // ========================================
@@ -115,6 +116,17 @@ const exitBtn = document.getElementById("exit-btn");
 // ========================================
 
 startBtn.onclick = () => {
+
+    // 各質問の選択肢の表示順をランダムに決める
+    shuffledChoicesByQuestion = questions.map(q => {
+        const choices = [...q.choices];
+
+        if (Math.random() < 0.5) {
+            choices.reverse();
+        }
+
+        return choices;
+    });
 
     quizScreen.classList.remove("hidden");
 
@@ -310,14 +322,11 @@ if(currentQuestion === 8){
 
 choicesElement.innerHTML = "";
 
-// 選択肢の表示順だけをランダムにする
-const shuffledChoices = [...q.choices];
+// 診断開始時に決めた表示順で選択肢を表示する
+const displayedChoices =
+    shuffledChoicesByQuestion[currentQuestion] || q.choices;
 
-if (Math.random() < 0.5) {
-    shuffledChoices.reverse();
-}
-
-shuffledChoices.forEach((choice, index) => {
+displayedChoices.forEach((choice, index) => {
     const button = document.createElement("button");
 
     // ------------------------------------
