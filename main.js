@@ -535,14 +535,14 @@ function showResult() {
     // ====================================
 
     const activityRate =
-        scores.E /
-        (scores.E + scores.I) *
-        100;
+    scores.I /
+    (scores.E + scores.I) *
+    100;
 
     const explorationRate =
-        scores.N /
-        (scores.N + scores.S) *
-        100;
+    scores.S /
+    (scores.N + scores.S) *
+    100;
 
     const empathyRate =
         scores.F /
