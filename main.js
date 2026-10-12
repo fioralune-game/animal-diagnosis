@@ -304,127 +304,156 @@ if(currentQuestion === 8){
     }
 
 
-    // ------------------------------------
-    // 選択肢
-    // ------------------------------------
+  // ------------------------------------
+// 選択肢
+// ------------------------------------
 
-    choicesElement.innerHTML = "";
+choicesElement.innerHTML = "";
 
+// 選択肢の表示順だけをランダムにする
+const shuffledChoices = [...q.choices];
 
-q.choices.forEach((choice,index)=>{
-   const button = document.createElement("button");
-
-if(currentQuestion === 8 && index === 1 && window.innerWidth <= 600){
-
-    button.innerHTML =
-        "失敗した原因を整理し、<br>次に同じことが起きない方法を考える";
-    
-}else if(currentQuestion === 9 && index === 0 && window.innerWidth <= 600){
-
-    button.innerHTML =
-        "そのときの気分や状況を見て、<br>行き先を決める";
-
-}else if(currentQuestion === 11 && index === 0 && window.innerWidth <= 600){
-
-    button.innerHTML =
-        "必要なものだけを持ち、<br>あとは旅の途中で考える";
-
-}else if(currentQuestion === 11 && index === 1 && window.innerWidth <= 600){
-
-    button.innerHTML =
-        "持ち物や道のりを確認し、<br>準備を整えてから出発する";
-
-}else{
-
-    button.textContent = choice.text;
-
+if (Math.random() < 0.5) {
+    shuffledChoices.reverse();
 }
 
-    if(index === 0){
+shuffledChoices.forEach((choice, index) => {
+    const button = document.createElement("button");
+
+    // ------------------------------------
+    // 選択肢の文章
+    // ------------------------------------
+
+    if (
+        currentQuestion === 8 &&
+        choice.type === "T" &&
+        window.innerWidth <= 600
+    ) {
+        button.innerHTML =
+            "失敗した原因を整理し、<br>次に同じことが起きない方法を考える";
+
+    } else if (
+        currentQuestion === 9 &&
+        choice.type === "P" &&
+        window.innerWidth <= 600
+    ) {
+        button.innerHTML =
+            "そのときの気分や状況を見て、<br>行き先を決める";
+
+    } else if (
+        currentQuestion === 11 &&
+        choice.type === "P" &&
+        window.innerWidth <= 600
+    ) {
+        button.innerHTML =
+            "必要なものだけを持ち、<br>あとは旅の途中で考える";
+
+    } else if (
+        currentQuestion === 11 &&
+        choice.type === "J" &&
+        window.innerWidth <= 600
+    ) {
+        button.innerHTML =
+            "持ち物や道のりを確認し、<br>準備を整えてから出発する";
+
+    } else {
+        button.textContent = choice.text;
+    }
+
+    // ------------------------------------
+    // A・Bの表示位置に応じたクラス
+    // ------------------------------------
+
+    if (index === 0) {
         button.classList.add("choice-a");
 
-        if(
-    currentQuestion === 0 ||
-    currentQuestion === 2 ||
-    currentQuestion === 3 ||
-    currentQuestion === 4 ||
-    currentQuestion === 7
-){
-    button.classList.add("first-question-a");
-}
+        if (
+            currentQuestion === 0 ||
+            currentQuestion === 2 ||
+            currentQuestion === 3 ||
+            currentQuestion === 4 ||
+            currentQuestion === 7
+        ) {
+            button.classList.add("first-question-a");
+        }
 
-        // 6問目 A → 13px
-        if(currentQuestion === 5){
+        if (currentQuestion === 5) {
             button.classList.add("sixth-question-a");
         }
 
-        if(currentQuestion === 8){
-    button.classList.add("ninth-question-a");
-}
+        if (currentQuestion === 8) {
+            button.classList.add("ninth-question-a");
+        }
 
-    }else{
+    } else {
         button.classList.add("choice-b");
 
-        // 1問目 B → 13px
-        if(currentQuestion === 0){
+        if (currentQuestion === 0) {
             button.classList.add("first-question-b");
         }
 
-        // 2・3・6問目 B → 12px
-        if(
+        if (
             currentQuestion === 1 ||
-            currentQuestion === 2 
-        ){
+            currentQuestion === 2
+        ) {
             button.classList.add("second-question-b");
         }
 
-        if(currentQuestion === 5){
-    button.classList.add("sixth-question-b");
-}
+        if (currentQuestion === 5) {
+            button.classList.add("sixth-question-b");
+        }
 
-        if(currentQuestion === 6){
-    button.classList.add("seventh-question-b");
-}
-        if(currentQuestion === 9){
-    button.classList.add("tenth-question-b");
-}
-        if(currentQuestion === 10){
-    button.classList.add("eleventh-question-b");
-}
-        
-        // 6・12問目 B → PC用17px
-        if(currentQuestion === 5 || currentQuestion === 11){
+        if (currentQuestion === 6) {
+            button.classList.add("seventh-question-b");
+        }
+
+        if (currentQuestion === 9) {
+            button.classList.add("tenth-question-b");
+        }
+
+        if (currentQuestion === 10) {
+            button.classList.add("eleventh-question-b");
+        }
+
+        if (
+            currentQuestion === 5 ||
+            currentQuestion === 11
+        ) {
             button.classList.add("small-choice-b");
         }
 
-        // 9問目 B → PC用14px
-        if(currentQuestion === 8){
+        if (currentQuestion === 8) {
             button.classList.add("smaller-choice-b");
         }
     }
 
-    button.onclick = ()=>{
+    // ------------------------------------
+    // 回答処理
+    // ------------------------------------
+
+    button.onclick = () => {
         answerHistory.push(choice.type);
         scores[choice.type]++;
         currentQuestion++;
 
-        if(currentQuestion < questions.length){
-            const container = document.getElementById("question-container");
+        if (currentQuestion < questions.length) {
+            const container =
+                document.getElementById("question-container");
+
             container.classList.add("fade-out");
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 container.classList.remove("fade-out");
                 showQuestion(currentQuestion - 1);
-            },300);
-        }else{
+            }, 300);
+
+        } else {
             showResult();
         }
     };
 
     choicesElement.appendChild(button);
 });
-    
-
     // ------------------------------------
     // 戻るボタン
     // ------------------------------------
